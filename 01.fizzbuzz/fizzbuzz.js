@@ -6,7 +6,7 @@ let fizzbuzz = (number) => {
   } else if (number % 3 === 0) {
     return "Fizz";
   } else {
-    return number;
+    return String(number);
   }
 };
 
