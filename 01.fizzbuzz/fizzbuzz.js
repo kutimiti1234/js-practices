@@ -10,8 +10,6 @@ let fizzbuzz = (number) => {
   }
 };
 
-let index = 0;
-while (index <= 20) {
-  console.log(fizzbuzz(index));
-  index++;
+for (let number = 1; number <= 20; number++) {
+  console.log(fizzbuzz(number))
 }
