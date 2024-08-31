@@ -3,10 +3,10 @@ import minimist from "minimist";
 import { DateTime, Interval } from "luxon";
 
 const argv = minimist(process.argv.slice(2));
-const now = DateTime.now();
-const year = argv["y"] || now.year;
-const month = argv["m"] || now.month;
-const dt = now || DateTime.local(year, month);
+
+const year = argv["y"] || DateTime.now().year;
+const month = argv["m"] || DateTime.now().month;
+const dt = DateTime.local(year, month);
 
 const first_date = dt.startOf("month");
 const last_date = dt.endOf("month");
