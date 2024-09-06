@@ -18,22 +18,23 @@ const renderHeader = function (year, month) {
 };
 
 const renderBody = function (first_date, last_date) {
+  let body = "";
+  const blanks = "   ".repeat(first_date.weekday % 7);
+
   const intervals = Interval.fromDateTimes(first_date, last_date)
     .splitBy({ day: 1 })
     .map((d) => d.start);
-  const blanks = Array(first_date.weekday % 7).fill("   ");
 
-  let body = [];
-
-  body = body.concat(blanks);
   intervals.forEach((date) => {
-    body.push(date.day.toString().padStart(2) + " ");
+    body += date.day.toString().padStart(2) + " ";
     if (date.weekday === 6) {
-      body.push("\n");
+      body += "\n";
     }
   });
 
-  return body.join("");
+  const padded_body = blanks + body;
+
+  return padded_body;
 };
 
 const header = renderHeader(year, month);
