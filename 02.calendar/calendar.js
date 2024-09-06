@@ -27,9 +27,8 @@ const renderBody = function (first_date, last_date) {
     }
   });
 
-  const padded_body = blanks + body;
 
-  return padded_body;
+  return  blanks + body;
 };
 
 const header = (month + "月 " + year).padStart(13) + "\n" + "日 月 火 水 木 金 土";
