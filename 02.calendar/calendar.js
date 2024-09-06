@@ -11,11 +11,6 @@ const dt = DateTime.local(year, month);
 const first_date = dt.startOf("month");
 const last_date = dt.endOf("month");
 
-const renderHeader = function (year, month) {
-  const header =
-    (month + "月 " + year).padStart(13) + "\n" + "日 月 火 水 木 金 土";
-  return header;
-};
 
 const renderBody = function (first_date, last_date) {
   let body = "";
@@ -37,6 +32,6 @@ const renderBody = function (first_date, last_date) {
   return padded_body;
 };
 
-const header = renderHeader(year, month);
+const header = (month + "月 " + year).padStart(13) + "\n" + "日 月 火 水 木 金 土";
 const body = renderBody(first_date, last_date);
 console.log([header, body].join("\n"));
