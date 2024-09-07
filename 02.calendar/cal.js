@@ -10,7 +10,7 @@ const renderHeader = function (month,year){
 
 const renderBody = function (firstDate, lastDate) {
   let body = "";
-  const blanks = "   ".repeat(firstDate.weekday % 7);
+  body += "   ".repeat(firstDate.weekday % 7);
 
   const intervals = luxon.Interval.fromDateTimes(firstDate, lastDate)
     .splitBy({ day: 1 })
@@ -23,7 +23,7 @@ const renderBody = function (firstDate, lastDate) {
     }
   });
 
-  return blanks + body;
+  return body;
 };
 
 const argv = minimist(process.argv.slice(2));
