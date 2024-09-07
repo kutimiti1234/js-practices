@@ -8,14 +8,14 @@ const year = argv["y"] ||  luxon.DateTime.now().year;
 const month = argv["m"] || luxon.DateTime.now().month;
 const dt = luxon.DateTime.local(year, month);
 
-const first_date = dt.startOf("month");
-const last_date = dt.endOf("month");
+const firstDate = dt.startOf("month");
+const lastDate = dt.endOf("month");
 
-const renderBody = function (first_date, last_date) {
+const renderBody = function (firstDate, lastDate) {
   let body = "";
-  const blanks = "   ".repeat(first_date.weekday % 7);
+  const blanks = "   ".repeat(firstDate.weekday % 7);
 
-  const intervals = luxon.Interval.fromDateTimes(first_date, last_date)
+  const intervals = luxon.Interval.fromDateTimes(firstDate, lastDate)
     .splitBy({ day: 1 })
     .map((d) => d.start);
 
@@ -31,5 +31,5 @@ const renderBody = function (first_date, last_date) {
 
 const header =
   (month + "月 " + year).padStart(13) + "\n" + "日 月 火 水 木 金 土";
-const body = renderBody(first_date, last_date);
+const body = renderBody(firstDate, lastDate);
 console.log([header, body].join("\n"));
