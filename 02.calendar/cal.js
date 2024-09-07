@@ -7,10 +7,10 @@ const argv = minimist(process.argv.slice(2));
 const now = luxon.DateTime.now();
 const year = argv.y ? argv.y : now.year
 const month = argv.m ? argv.m : now.month;
-const dt = luxon.DateTime.local(year, month);
+const datetime = luxon.DateTime.local(year, month);
 
-const firstDate = dt.startOf("month");
-const lastDate = dt.endOf("month");
+const firstDate = datetime.startOf("month");
+const lastDate = datetime.endOf("month");
 
 const renderBody = function (firstDate, lastDate) {
   let body = "";
