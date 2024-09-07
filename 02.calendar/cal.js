@@ -3,15 +3,6 @@
 import minimist from "minimist";
 import * as luxon from "luxon"
 
-const argv = minimist(process.argv.slice(2));
-const now = luxon.DateTime.now();
-const year = argv.y ? argv.y : now.year
-const month = argv.m ? argv.m : now.month;
-const datetime = luxon.DateTime.local(year, month);
-
-const firstDate = datetime.startOf("month");
-const lastDate = datetime.endOf("month");
-
 const renderBody = function (firstDate, lastDate) {
   let body = "";
   const blanks = "   ".repeat(firstDate.weekday % 7);
@@ -29,6 +20,16 @@ const renderBody = function (firstDate, lastDate) {
 
   return blanks + body;
 };
+
+const argv = minimist(process.argv.slice(2));
+const now = luxon.DateTime.now();
+const year = argv.y ? argv.y : now.year
+const month = argv.m ? argv.m : now.month;
+const datetime = luxon.DateTime.local(year, month);
+
+const firstDate = datetime.startOf("month");
+const lastDate = datetime.endOf("month");
+
 
 const header =
   (month + "月 " + year).padStart(13) + "\n" + "日 月 火 水 木 金 土";
