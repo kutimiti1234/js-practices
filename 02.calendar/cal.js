@@ -4,8 +4,9 @@ import minimist from "minimist";
 import * as luxon from "luxon"
 
 const argv = minimist(process.argv.slice(2));
-const year = argv.y || luxon.DateTime.now().year;
-const month = argv.m || luxon.DateTime.now().month;
+const now = luxon.DateTime.now();
+const year = argv.y ? argv.y : now.year
+const month = argv.m ? argv.m : now.month;
 const dt = luxon.DateTime.local(year, month);
 
 const firstDate = dt.startOf("month");
