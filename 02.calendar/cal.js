@@ -3,6 +3,11 @@
 import minimist from "minimist";
 import * as luxon from "luxon"
 
+const renderHeader = function (month,year){
+  const header = `      ${month}月 ${year}\n日 月 火 水 木 金 土`
+  return header
+}
+
 const renderBody = function (firstDate, lastDate) {
   let body = "";
   const blanks = "   ".repeat(firstDate.weekday % 7);
@@ -31,7 +36,6 @@ const firstDate = datetime.startOf("month");
 const lastDate = datetime.endOf("month");
 
 
-const header =
-  (month + "月 " + year).padStart(13) + "\n" + "日 月 火 水 木 金 土";
+const header = renderHeader(month,year)
 const body = renderBody(firstDate, lastDate);
 console.log([header, body].join("\n"));
