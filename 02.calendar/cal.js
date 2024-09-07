@@ -31,8 +31,8 @@ const argv = minimist(process.argv.slice(2));
 const now = luxon.DateTime.now();
 const year = argv.y ? argv.y : now.year;
 const month = argv.m ? argv.m : now.month;
-const header = renderHeader(month, year);
 
+const header = renderHeader(month, year);
 const firstDate = luxon.DateTime.local(year, month, 1);
 const lastDate = firstDate.endOf("month");
 const body = renderBody(firstDate, lastDate);
