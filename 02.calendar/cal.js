@@ -1,13 +1,12 @@
 #! /usr/bin/env node
 
 import minimist from "minimist";
-import { DateTime, Interval } from "luxon";
+import * as luxon from "luxon"
 
 const argv = minimist(process.argv.slice(2));
-
-const year = argv["y"] || DateTime.now().year;
-const month = argv["m"] || DateTime.now().month;
-const dt = DateTime.local(year, month);
+const year = argv["y"] ||  luxon.DateTime.now().year;
+const month = argv["m"] || luxon.DateTime.now().month;
+const dt = luxon.DateTime.local(year, month);
 
 const first_date = dt.startOf("month");
 const last_date = dt.endOf("month");
@@ -16,7 +15,7 @@ const renderBody = function (first_date, last_date) {
   let body = "";
   const blanks = "   ".repeat(first_date.weekday % 7);
 
-  const intervals = Interval.fromDateTimes(first_date, last_date)
+  const intervals = luxon.Interval.fromDateTimes(first_date, last_date)
     .splitBy({ day: 1 })
     .map((d) => d.start);
 
