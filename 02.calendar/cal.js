@@ -1,12 +1,12 @@
 #! /usr/bin/env node
 
 import minimist from "minimist";
-import * as luxon from "luxon"
+import * as luxon from "luxon";
 
-const renderHeader = function (month,year){
-  const header = `      ${month}月 ${year}\n日 月 火 水 木 金 土`
-  return header
-}
+const renderHeader = function (month, year) {
+  const header = `      ${month}月 ${year}\n日 月 火 水 木 金 土`;
+  return header;
+};
 
 const renderBody = function (firstDate, lastDate) {
   let body = "";
@@ -29,10 +29,9 @@ const renderBody = function (firstDate, lastDate) {
 
 const argv = minimist(process.argv.slice(2));
 const now = luxon.DateTime.now();
-const year = argv.y ? argv.y : now.year
+const year = argv.y ? argv.y : now.year;
 const month = argv.m ? argv.m : now.month;
-
-
+const header = renderHeader(month, year);
 
 const firstDate = luxon.DateTime.local(year, month, 1);
 const lastDate = firstDate.endOf("month");
