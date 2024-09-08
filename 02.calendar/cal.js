@@ -12,17 +12,19 @@ const renderBody = function (firstDate, lastDate) {
   let body = "";
   body += "   ".repeat(firstDate.weekday % 7);
 
-  const days = [];
+  const dates = [];
   for (let date = firstDate; date <= lastDate; date = date.plus({ days: 1 })) {
-    days.push(date);
+    dates.push(date);
   }
 
-  days.forEach((date) => {
-    body += date.day.toString().padStart(2) + " ";
+  body += dates.reduce((accumulator, date) => {
+    let padded_date = date.day.toString().padStart(2);
     if (date.weekday === 6) {
-      body += "\n";
+      return `${accumulator}${padded_date}\n`;
+    } else {
+      return `${accumulator}${padded_date} `;
     }
-  });
+  }, "");
 
   return body;
 };
