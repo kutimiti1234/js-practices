@@ -18,11 +18,11 @@ const renderBody = function (firstDate, lastDate) {
   }
 
   body += dates.reduce((accumulator, date) => {
-    let padded_date = date.day.toString().padStart(2);
+    let paddedDate = date.day.toString().padStart(2);
     if (date.weekday === 6) {
-      return `${accumulator}${padded_date}\n`;
+      return `${accumulator}${paddedDate}\n`;
     } else {
-      return `${accumulator}${padded_date} `;
+      return `${accumulator}${paddedDate} `;
     }
   }, "");
 
