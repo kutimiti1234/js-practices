@@ -36,6 +36,6 @@ const month = argv.m ? argv.m : now.month;
 
 const header = renderHeader(month, year);
 const firstDate = luxon.DateTime.local(year, month, 1);
-const lastDate = firstDate.endOf("month");
+const lastDate = firstDate.plus({ months: 1 }).minus({ days: 1 });
 const body = renderBody(firstDate, lastDate);
 console.log([header, body].join("\n"));
