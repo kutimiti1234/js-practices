@@ -23,7 +23,7 @@ const checkMonth = function (month) {
   }
 };
 
-const renderHeader = function (month, year) {
+const renderHeader = function (year, month) {
   const header = `      ${month}月 ${year}\n日 月 火 水 木 金 土`;
   return header;
 };
@@ -61,7 +61,7 @@ try {
   process.exit(1);
 }
 
-const header = renderHeader(month, year);
+const header = renderHeader(year, month);
 const firstDate = luxon.DateTime.local(year, month, 1);
 const lastDate = firstDate.plus({ months: 1 }).minus({ days: 1 });
 const body = renderBody(firstDate, lastDate);
