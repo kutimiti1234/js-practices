@@ -57,7 +57,7 @@ try {
   checkYear(year);
   checkMonth(month);
 } catch (error) {
-  console.error(error);
+  console.error(error.message);
   process.exit(1);
 }
 
