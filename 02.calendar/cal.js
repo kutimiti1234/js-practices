@@ -29,8 +29,7 @@ const renderHeader = function (year, month) {
 };
 
 const renderBody = function (firstDate, lastDate) {
-  let body = "";
-  body += "   ".repeat(firstDate.weekday % 7);
+  let body = "   ".repeat(firstDate.weekday % 7);
 
   const dates = [];
   for (let date = firstDate; date <= lastDate; date = date.plus({ days: 1 })) {
