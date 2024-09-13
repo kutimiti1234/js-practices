@@ -3,7 +3,7 @@
 import minimist from "minimist";
 import * as luxon from "luxon";
 
-const checkYear = function (year) {
+const checkYear = (year) => {
   if (typeof year !== "number") {
     throw new TypeError(`cal: not a valid year ${year}`);
   } else if (year < 1 || year > 9999) {
@@ -11,7 +11,7 @@ const checkYear = function (year) {
   }
 };
 
-const checkMonth = function (month) {
+const checkMonth = (month) => {
   if (typeof month !== "number") {
     throw new TypeError(
       `cal: ${month} is neither a month number (1..12) nor a name.`,
@@ -23,12 +23,12 @@ const checkMonth = function (month) {
   }
 };
 
-const renderHeader = function (year, month) {
+const renderHeader = (year, month) => {
   const header = `      ${month}月 ${year}\n日 月 火 水 木 金 土`;
   return header;
 };
 
-const renderBody = function (firstDate, lastDate) {
+const renderBody = (firstDate, lastDate) => {
   let body = "   ".repeat(firstDate.weekday % 7);
 
   const dates = [];
