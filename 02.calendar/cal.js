@@ -50,8 +50,8 @@ const renderBody = function (firstDate, lastDate) {
 
 const now = luxon.DateTime.now();
 const argv = minimist(process.argv.slice(2));
-const year = argv.y !== undefined ? argv.y : now.year;
-const month = argv.m !== undefined ? argv.m : now.month;
+const year = argv.y ?? now.year;
+const month = argv.m ?? now.month;
 try {
   checkYear(year);
   checkMonth(month);
