@@ -40,14 +40,18 @@ const renderBody = (firstDate, lastDate) => {
     dates.push(date);
   }
 
-  body += dates.reduce((accumulator, date) => {
-    const paddedDate = date.day.toString().padStart(2);
-    if (date.weekday === 6) {
-      return `${accumulator}${paddedDate}\n`;
-    } else {
-      return `${accumulator}${paddedDate} `;
-    }
-  }, "");
+  body += dates
+    .map((date) => {
+      let paddedDate = date.day.toString().padStart(2);
+      if (date.weekday === 6) {
+        return `${paddedDate}\n`;
+      } else if (date.day !== lastDate.day) {
+        return `${paddedDate} `;
+      } else if (date.day === lastDate.day) {
+        return `${paddedDate}`;
+      }
+    })
+    .join("");
 
   return body;
 };
