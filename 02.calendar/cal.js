@@ -52,7 +52,12 @@ const renderBody = (firstDate, lastDate) => {
   return body;
 };
 
-const argv = minimist(process.argv.slice(2));
+const argv = minimist(process.argv.slice(2), {
+  alias: {
+    y: "year",
+    m: "month",
+  },
+});
 try {
   checkYear(argv.year);
   checkMonth(argv.month);
