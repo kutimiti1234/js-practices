@@ -4,6 +4,8 @@ import minimist from "minimist";
 import * as luxon from "luxon";
 
 const checkYear = (year) => {
+  if (year === undefined) return;
+
   if (typeof year !== "number") {
     throw new TypeError(`cal: not a valid year ${year}`);
   } else if (year < 1 || year > 9999) {
@@ -12,6 +14,8 @@ const checkYear = (year) => {
 };
 
 const checkMonth = (month) => {
+  if (month === undefined) return;
+
   if (typeof month !== "number") {
     throw new TypeError(
       `cal: ${month} is neither a month number (1..12) nor a name.`,
@@ -48,17 +52,18 @@ const renderBody = (firstDate, lastDate) => {
   return body;
 };
 
-const now = luxon.DateTime.now();
 const argv = minimist(process.argv.slice(2));
-const year = argv.y ?? now.year;
-const month = argv.m ?? now.month;
 try {
-  checkYear(year);
-  checkMonth(month);
+  checkYear(argv.year);
+  checkMonth(argv.month);
 } catch (error) {
   console.error(error.message);
   process.exit(1);
 }
+
+const now = luxon.DateTime.now();
+const year = argv.y ?? now.year;
+const month = argv.m ?? now.month;
 
 const header = renderHeader(year, month);
 const firstDate = luxon.DateTime.local(year, month, 1);
