@@ -45,13 +45,12 @@ const renderBody = (firstDate, lastDate) => {
       let paddedDate = date.day.toString().padStart(2);
       if (date.weekday === 6) {
         return `${paddedDate}\n`;
-      } else if (date.day !== lastDate.day) {
+      } else {
         return `${paddedDate} `;
-      } else if (date.day === lastDate.day) {
-        return `${paddedDate}`;
       }
     })
-    .join("");
+    .join("")
+    .trimEnd();
 
   return body;
 };
