@@ -49,7 +49,7 @@ const renderBody = (firstDate, lastDate) => {
       date.day
         .toString()
         .padStart(2)
-        .concat(date.weekday === 6 ? `\n` : ` `),
+        .concat(date.weekday === 6 ? "\n" : " "),
     )
     .join("")
     .trimEnd();
