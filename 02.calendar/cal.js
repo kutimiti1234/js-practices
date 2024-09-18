@@ -72,8 +72,8 @@ try {
 }
 
 const now = luxon.DateTime.now();
-const year = argv.y ?? now.year;
-const month = argv.m ?? now.month;
+const year = argv.year ?? now.year;
+const month = argv.month ?? now.month;
 
 const header = renderHeader(year, month);
 const firstDate = luxon.DateTime.local(year, month, 1);
