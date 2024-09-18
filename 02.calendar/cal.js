@@ -4,7 +4,9 @@ import minimist from "minimist";
 import * as luxon from "luxon";
 
 const checkYear = (year) => {
-  if (year === undefined || year === null) return;
+  if (year === undefined || year === null) {
+    return;
+  }
 
   if (typeof year !== "number") {
     throw new TypeError(`cal: not a valid year ${year}`);
@@ -14,7 +16,9 @@ const checkYear = (year) => {
 };
 
 const checkMonth = (month) => {
-  if (month === undefined || month === null) return;
+  if (month === undefined || month === null) {
+    return;
+  }
 
   if (typeof month !== "number") {
     throw new TypeError(
