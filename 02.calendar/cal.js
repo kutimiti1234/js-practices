@@ -45,9 +45,11 @@ const renderBody = (firstDate, lastDate) => {
   }
 
   body += dates
-    .map((date) => date.day.toString().padStart(2))
-    .map((paddedDate, index) =>
-      dates[index].weekday === 6 ? `${paddedDate}\n` : `${paddedDate} `,
+    .map((date) =>
+      date.day
+        .toString()
+        .padStart(2)
+        .concat(date.weekday === 6 ? `\n` : ` `),
     )
     .join("")
     .trimEnd();
