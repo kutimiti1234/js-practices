@@ -6,12 +6,12 @@ import promisifiedFunctions from "./promisified-functions.js";
 const database = new sqlite3.Database(":memory:");
 
 promisifiedFunctions
-  .promisifiedRun(
+  .run(
     database,
     "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
   )
   .then(() =>
-    promisifiedFunctions.promisifiedRun(
+    promisifiedFunctions.run(
       database,
       "INSERT INTO books(title) VALUES($title)",
       {
@@ -21,7 +21,7 @@ promisifiedFunctions
   )
   .catch((error) => console.log(error.message))
   .then(() =>
-    promisifiedFunctions.promisifiedGet(
+    promisifiedFunctions.get(
       database,
       "SELECT error FROM books WHERE id = $id",
       {
@@ -30,5 +30,5 @@ promisifiedFunctions
     ),
   )
   .catch((error) => console.log(error.message))
-  .then(() => promisifiedFunctions.promisifiedRun(database, "DROP TABLE books"))
+  .then(() => promisifiedFunctions.run(database, "DROP TABLE books"))
   .then(() => database.close);

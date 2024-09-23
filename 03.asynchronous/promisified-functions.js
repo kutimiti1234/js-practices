@@ -1,4 +1,4 @@
-function promisifiedRun(database, sql, param) {
+function run(database, sql, param) {
   return new Promise((resolve, reject) => {
     database.run(sql, param, function (error) {
       if (error) {
@@ -10,7 +10,7 @@ function promisifiedRun(database, sql, param) {
   });
 }
 
-function promisifiedGet(database, sql, param) {
+function get(database, sql, param) {
   return new Promise((resolve, reject) => {
     database.get(sql, param, (error, row) => {
       if (error) {
@@ -22,4 +22,4 @@ function promisifiedGet(database, sql, param) {
   });
 }
 
-export default { promisifiedRun, promisifiedGet };
+export default { run, get };
