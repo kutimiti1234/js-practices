@@ -10,7 +10,7 @@ import mysqlite3 from "./promisified_functions.js";
       database,
       "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT,title UNIQUE NOT NULL)",
     );
-    let addedID = await mysqlite3.promisifiedRun(
+    const addedID = await mysqlite3.promisifiedRun(
       database,
       "INSERT INTO books(title) VALUES($title) ",
       { $title: null },
@@ -20,7 +20,7 @@ import mysqlite3 from "./promisified_functions.js";
     console.log(error.message);
   }
   try {
-    let row = await mysqlite3.promisifiedGet(
+    const row = await mysqlite3.promisifiedGet(
       database,
       "SELECT error FROM books WHERE id = $id",
       {
