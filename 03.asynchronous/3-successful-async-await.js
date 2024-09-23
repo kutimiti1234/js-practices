@@ -1,22 +1,22 @@
 #! /usr/bin/env node
 
 import sqlite3 from "sqlite3";
-import mysqlite3 from "./promisified-functions.js";
+import promisifiedFunctions from "./promisified-functions.js";
 
 (async () => {
   const database = new sqlite3.Database(":memory:");
   try {
-    await mysqlite3.promisifiedRun(
+    await promisifiedFunctions.promisifiedRun(
       database,
       "CREATE TABLE books ( id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NUL )",
     );
-    const addedID = await mysqlite3.promisifiedRun(
+    const addedID = await promisifiedFunctions.promisifiedRun(
       database,
       "INSERT INTO books(title) VALUES($title)",
       { $title: "test_book" },
     );
     console.log(addedID);
-    const row = await mysqlite3.promisifiedGet(
+    const row = await promisifiedFunctions.promisifiedGet(
       database,
       "SELECT * FROM books WHERE id = $id",
       {
@@ -24,7 +24,7 @@ import mysqlite3 from "./promisified-functions.js";
       },
     );
     console.log(row.title);
-    await mysqlite3.promisifiedRun(database, "DROP TABLE books");
+    await promisifiedFunctions.promisifiedRun(database, "DROP TABLE books");
   } catch (error) {
     console.log(error.message);
   }
