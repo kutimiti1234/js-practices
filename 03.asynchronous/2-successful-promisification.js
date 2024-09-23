@@ -8,12 +8,12 @@ const database = new sqlite3.Database(":memory:");
 mysqlite3
   .promisifiedRun(
     database,
-    "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT,title UNIQUE NOT NULL)",
+    "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
   )
   .then(() =>
     mysqlite3.promisifiedRun(
       database,
-      "INSERT INTO books(title) VALUES($title) ",
+      "INSERT INTO books(title) VALUES($title)",
       {
         $title: "test_book",
       },

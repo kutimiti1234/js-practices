@@ -8,11 +8,11 @@ import mysqlite3 from "./promisified-functions.js";
   try {
     await mysqlite3.promisifiedRun(
       database,
-      "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT,title UNIQUE NOT NULL)",
+      "CREATE TABLE books ( id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NUL )",
     );
     const addedID = await mysqlite3.promisifiedRun(
       database,
-      "INSERT INTO books(title) VALUES($title) ",
+      "INSERT INTO books(title) VALUES($title)",
       { $title: "test_book" },
     );
     console.log(addedID);
