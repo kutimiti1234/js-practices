@@ -11,7 +11,7 @@ function promisifiedRun(database, sql, param) {
 }
 
 function promisifiedGet(database, sql, param) {
-  return new Promise((resolve, reject)=> {
+  return new Promise((resolve, reject) => {
     database.get(sql, param, (error, row) => {
       if (error) {
         reject(error);
