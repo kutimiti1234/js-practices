@@ -3,6 +3,7 @@
 import sqlite3 from "sqlite3";
 
 const database = new sqlite3.Database(":memory:");
+
 database.run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
   () =>
