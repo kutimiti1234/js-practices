@@ -19,12 +19,18 @@ promisifiedFunctions
       },
     ),
   )
-  .then((result) => console.log(result))
-  .then(() =>
-    promisifiedFunctions.get(database, "SELECT * FROM books WHERE id = $id", {
-      $id: 1,
-    }),
-  )
-  .then((row) => console.log(row.title))
-  .then(() => promisifiedFunctions.run(database, "DROP TABLE books"))
+  .then((result) => {
+    console.log(result.lastID);
+    return promisifiedFunctions.get(
+      database,
+      "SELECT * FROM books WHERE id = $id",
+      {
+        $id: 1,
+      },
+    );
+  })
+  .then((row) => {
+    console.log(row.title);
+    promisifiedFunctions.run(database, "DROP TABLE books");
+  })
   .then(() => database.close);

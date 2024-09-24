@@ -19,16 +19,18 @@ promisifiedFunctions
       },
     ),
   )
-  .catch((error) => console.log(error.message))
-  .then(() =>
-    promisifiedFunctions.get(
+  .catch((error) => {
+    console.error(error.message);
+    return promisifiedFunctions.get(
       database,
       "SELECT error FROM books WHERE id = $id",
       {
         $id: 1,
       },
-    ),
-  )
-  .catch((error) => console.log(error.message))
-  .then(() => promisifiedFunctions.run(database, "DROP TABLE books"))
+    );
+  })
+  .catch((error) => {
+    console.error(error.message);
+    promisifiedFunctions.run(database, "DROP TABLE books");
+  })
   .then(() => database.close);
