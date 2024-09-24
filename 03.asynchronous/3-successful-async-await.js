@@ -7,7 +7,7 @@ import promisifiedFunctions from "./promisified-functions.js";
   const database = new sqlite3.Database(":memory:");
   await promisifiedFunctions.run(
     database,
-    "CREATE TABLE books ( id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL )",
+    "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
   );
   const addedID = await promisifiedFunctions.run(
     database,
