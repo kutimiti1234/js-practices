@@ -4,7 +4,7 @@ function run(database, sql, param) {
       if (error) {
         reject(error);
       } else {
-        resolve(this.lastID);
+        resolve(this);
       }
     });
   });
