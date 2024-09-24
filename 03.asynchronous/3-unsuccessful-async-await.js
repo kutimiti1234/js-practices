@@ -8,7 +8,7 @@ import promisifiedFunctions from "./promisified-functions.js";
   try {
     await promisifiedFunctions.run(
       database,
-      "CREATE TABLE books ( id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NUL )",
+      "CREATE TABLE books ( id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL )",
     );
     const addedID = await promisifiedFunctions.run(
       database,
