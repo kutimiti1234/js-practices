@@ -15,7 +15,7 @@ import promisifiedFunctions from "./promisified-functions.js";
       "INSERT INTO books(title) VALUES($title)",
       { $title: null },
     );
-    console.log(thisPropeties.lastID);
+    console.log(thisProperties.lastID);
   } catch (error) {
     if (error.code === "SQLITE_CONSTRAINT") {
       console.error(error.message);
