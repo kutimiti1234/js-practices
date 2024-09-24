@@ -17,7 +17,9 @@ import promisifiedFunctions from "./promisified-functions.js";
     );
     console.log(addedID);
   } catch (error) {
-    console.log(error.message);
+    if (error.code === "SQLITE_CONSTRAINT") {
+      console.error(error);
+    }
   }
   try {
     const row = await promisifiedFunctions.get(
@@ -29,7 +31,9 @@ import promisifiedFunctions from "./promisified-functions.js";
     );
     console.log(row.title);
   } catch (error) {
-    console.error(error.message);
+    if (error.code === "SQLITE_ERROR") {
+      console.error(error.message);
+    }
   }
   await promisifiedFunctions.run(database, "DROP TABLE books");
   database.close;
