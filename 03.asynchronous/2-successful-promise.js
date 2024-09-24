@@ -31,6 +31,6 @@ promisifiedFunctions
   })
   .then((row) => {
     console.log(row.title);
-    promisifiedFunctions.run(database, "DROP TABLE books");
+    return promisifiedFunctions.run(database, "DROP TABLE books");
   })
   .then(() => database.close);

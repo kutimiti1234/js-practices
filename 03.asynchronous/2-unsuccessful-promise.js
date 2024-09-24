@@ -31,6 +31,6 @@ promisifiedFunctions
   })
   .catch((error) => {
     console.error(error.message);
-    promisifiedFunctions.run(database, "DROP TABLE books");
+    return promisifiedFunctions.run(database, "DROP TABLE books");
   })
   .then(() => database.close);
