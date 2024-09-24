@@ -9,12 +9,12 @@ import promisifiedFunctions from "./promisified-functions.js";
     database,
     "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
   );
-  const addedID = await promisifiedFunctions.run(
+  const thisProperties = await promisifiedFunctions.run(
     database,
     "INSERT INTO books(title) VALUES($title)",
     { $title: "test_book" },
   );
-  console.log(addedID);
+  console.log(thisProperties.lastID);
   const row = await promisifiedFunctions.get(
     database,
     "SELECT * FROM books WHERE id = $id",

@@ -10,15 +10,15 @@ import promisifiedFunctions from "./promisified-functions.js";
     "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
   );
   try {
-    const addedID = await promisifiedFunctions.run(
+    const thisProperties = await promisifiedFunctions.run(
       database,
       "INSERT INTO books(title) VALUES($title)",
       { $title: null },
     );
-    console.log(addedID);
+    console.log(thisPropeties.lastID);
   } catch (error) {
     if (error.code === "SQLITE_CONSTRAINT") {
-      console.error(error);
+      console.error(error.message);
     }
   }
   try {
