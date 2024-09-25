@@ -19,8 +19,8 @@ promisifiedFunctions
       },
     ),
   )
-  .then((result) => {
-    console.log(result.lastID);
+  .then((resultProperties) => {
+    console.log(resultProperties.lastID);
     return promisifiedFunctions.get(
       database,
       "SELECT * FROM books WHERE id = $id",
