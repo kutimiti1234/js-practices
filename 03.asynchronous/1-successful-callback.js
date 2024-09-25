@@ -6,7 +6,7 @@ const database = new sqlite3.Database(":memory:");
 
 database.run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
-  () =>
+  () => {
     database.run(
       "INSERT INTO books(title) VALUES($title)",
       {
@@ -21,9 +21,12 @@ database.run(
           },
           (_, row) => {
             console.log(row.title);
-            database.run("DROP TABLE books", () => database.close);
+            database.run("DROP TABLE books", () => {
+              database.close;
+            });
           },
         );
       },
-    ),
+    );
+  },
 );

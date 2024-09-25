@@ -22,4 +22,15 @@ function get(database, sql, param) {
   });
 }
 
-export default { run, get };
+function close(database) {
+  return new Promise((resolve, reject) => {
+    database.close((error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+}
+export default { run, get, close };
