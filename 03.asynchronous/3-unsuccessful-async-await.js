@@ -35,4 +35,4 @@ try {
   }
 }
 await promisifiedFunctions.run(database, "DROP TABLE books");
-database.close;
+promisifiedFunctions.close(database);

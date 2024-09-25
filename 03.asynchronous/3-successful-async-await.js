@@ -23,4 +23,4 @@ const row = await promisifiedFunctions.get(
 );
 console.log(row.title);
 await promisifiedFunctions.run(database, "DROP TABLE books");
-database.close;
+promisifiedFunctions.close(database);
