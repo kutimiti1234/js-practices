@@ -14,7 +14,7 @@ database.run(
       },
       function (error) {
         if (error) {
-          console.log(error.message);
+          console.error(error.message);
         }
         database.get(
           "SELECT error FROM books WHERE id = $id",
@@ -23,7 +23,7 @@ database.run(
           },
           (error) => {
             if (error) {
-              console.log(error.message);
+              console.error(error.message);
             }
             database.run("DROP TABLE books", () => {
               database.close;
