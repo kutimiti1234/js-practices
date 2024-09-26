@@ -26,7 +26,7 @@ database.run(
               console.error(error.message);
             }
             database.run("DROP TABLE books", () => {
-              database.close;
+              database.close();
             });
           },
         );

@@ -21,9 +21,7 @@ database.run(
           },
           (_, row) => {
             console.log(row.title);
-            database.run("DROP TABLE books", () => {
-              database.close;
-            });
+            database.run("DROP TABLE books", () => database.close());
           },
         );
       },
