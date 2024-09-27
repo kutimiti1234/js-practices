@@ -34,5 +34,5 @@ promisifiedFunctions
     return promisifiedFunctions.run(database, "DROP TABLE books");
   })
   .then(() => {
-    promisifiedFunctions.close(database);
+    return promisifiedFunctions.close(database);
   });
