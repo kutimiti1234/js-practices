@@ -18,8 +18,10 @@ try {
   );
   console.log(resultProperties.lastID);
 } catch (error) {
-  if (error.code === "SQLITE_CONSTRAINT") {
+  if ("code" in error && error.code === "SQLITE_CONSTRAINT") {
     console.error(error.message);
+  } else {
+    throw error;
   }
 }
 try {
@@ -32,8 +34,10 @@ try {
   );
   console.log(row.title);
 } catch (error) {
-  if (error.code === "SQLITE_ERROR") {
+  if ("code" in error && error.code === "SQLITE_ERROR") {
     console.error(error.message);
+  } else {
+    throw error;
   }
 }
 await promisifiedFunctions.run(database, "DROP TABLE books");
