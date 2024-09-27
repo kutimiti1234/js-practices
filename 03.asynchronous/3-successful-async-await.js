@@ -11,7 +11,9 @@ await promisifiedFunctions.run(
 const resultProperties = await promisifiedFunctions.run(
   database,
   "INSERT INTO books(title) VALUES($title)",
-  { $title: "test_book" },
+  {
+    $title: "test_book",
+  },
 );
 console.log(resultProperties.lastID);
 const row = await promisifiedFunctions.get(

@@ -12,7 +12,9 @@ try {
   const resultProperties = await promisifiedFunctions.run(
     database,
     "INSERT INTO books(title) VALUES($title)",
-    { $title: null },
+    {
+      $title: null,
+    },
   );
   console.log(resultProperties.lastID);
 } catch (error) {
