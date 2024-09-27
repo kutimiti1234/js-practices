@@ -12,7 +12,7 @@ database.run(
       {
         $title: null,
       },
-      function (error) {
+      (error) => {
         if (error) {
           console.error(error.message);
         }
