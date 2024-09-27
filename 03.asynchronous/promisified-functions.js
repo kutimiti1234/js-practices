@@ -24,11 +24,11 @@ function get(database, sql, param) {
 
 function close(database) {
   return new Promise((resolve, reject) => {
-    database.close((error, result) => {
+    database.close((error) => {
       if (error) {
         reject(error);
       } else {
-        resolve(result);
+        resolve;
       }
     });
   });
