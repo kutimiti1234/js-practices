@@ -28,7 +28,7 @@ function close(database) {
       if (error) {
         reject(error);
       } else {
-        resolve;
+        resolve();
       }
     });
   });
