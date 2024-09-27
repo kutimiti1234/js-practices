@@ -20,7 +20,11 @@ promisifiedDatabaseFunctionss
     ),
   )
   .catch((error) => {
-    console.error(error.message);
+    if ("code" in error && error.code === "SQLITE_CONSTRAINT") {
+      console.error(error.message);
+    } else {
+      throw error;
+    }
     return promisifiedDatabaseFunctionss.get(
       database,
       "SELECT error FROM books WHERE id = $id",
@@ -30,7 +34,11 @@ promisifiedDatabaseFunctionss
     );
   })
   .catch((error) => {
-    console.error(error.message);
+    if ("code" in error && error.code === "SQLITE_ERROR") {
+      console.error(error.message);
+    } else {
+      throw error;
+    }
     return promisifiedDatabaseFunctionss.run(database, "DROP TABLE books");
   })
   .then(() => {
