@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import sqlite3 from "sqlite3";
-import promisifiedDatabaseFunctions from "./promisified-functions.js";
+import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 
 const database = new sqlite3.Database(":memory:");
 
