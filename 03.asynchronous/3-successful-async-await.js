@@ -8,14 +8,14 @@ await promisifiedDatabaseFunctionss.run(
   database,
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
 );
-const resultProperties = await promisifiedDatabaseFunctionss.run(
+const result = await promisifiedDatabaseFunctionss.run(
   database,
   "INSERT INTO books(title) VALUES($title)",
   {
     $title: "test_book",
   },
 );
-console.log(resultProperties.lastID);
+console.log(result.lastID);
 const row = await promisifiedDatabaseFunctionss.get(
   database,
   "SELECT * FROM books WHERE id = $id",

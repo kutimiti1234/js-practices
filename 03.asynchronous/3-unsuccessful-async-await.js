@@ -9,14 +9,14 @@ await promisifiedDatabaseFunctionss.run(
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
 );
 try {
-  const resultProperties = await promisifiedDatabaseFunctionss.run(
+  const result = await promisifiedDatabaseFunctionss.run(
     database,
     "INSERT INTO books(title) VALUES($title)",
     {
       $title: null,
     },
   );
-  console.log(resultProperties.lastID);
+  console.log(result.lastID);
 } catch (error) {
   if ("code" in error && error.code === "SQLITE_CONSTRAINT") {
     console.error(error.message);
