@@ -1,15 +1,15 @@
 #! /usr/bin/env node
 
 import sqlite3 from "sqlite3";
-import promisifiedDatabaseFunctionss from "./promisified-functions.js";
+import promisifiedDatabaseFunctions from "./promisified-functions.js";
 
 const database = new sqlite3.Database(":memory:");
-await promisifiedDatabaseFunctionss.run(
+await promisifiedDatabaseFunctions.run(
   database,
   "CREATE TABLE books(id INTEGER PRIMARY KEY AUTOINCREMENT, title UNIQUE NOT NULL)",
 );
 try {
-  const result = await promisifiedDatabaseFunctionss.run(
+  const result = await promisifiedDatabaseFunctions.run(
     database,
     "INSERT INTO books(title) VALUES($title)",
     {
@@ -25,7 +25,7 @@ try {
   }
 }
 try {
-  const row = await promisifiedDatabaseFunctionss.get(
+  const row = await promisifiedDatabaseFunctions.get(
     database,
     "SELECT error FROM books WHERE id = $id",
     {
@@ -40,5 +40,5 @@ try {
     throw error;
   }
 }
-await promisifiedDatabaseFunctionss.run(database, "DROP TABLE books");
-await promisifiedDatabaseFunctionss.close(database);
+await promisifiedDatabaseFunctions.run(database, "DROP TABLE books");
+await promisifiedDatabaseFunctions.close(database);
