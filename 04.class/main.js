@@ -3,7 +3,7 @@
 import minimist from "minimist";
 import sqlite3 from "sqlite3";
 import readline from "readline";
-import manager from "./manager.js";
+import Manager from "./manager.js";
 import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 
 const options = minimist(process.argv.slice(2), {
@@ -19,7 +19,7 @@ await promisifiedDatabaseFunctions.run(
   database,
   "CREATE TABLE IF NOT EXISTS memo(id INTEGER PRIMARY KEY AUTOINCREMENT, title NOT NULL, body NOT NULL)",
 );
-const memoManager = new manager.Manager(database);
+const memoManager = new Manager(database);
 
 if (!options.list && !options.reference && !options.delete) {
   const rl = readline.createInterface({
