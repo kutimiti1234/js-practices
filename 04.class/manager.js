@@ -16,5 +16,14 @@ class Manager {
     await promisifiedDatabaseFunctions.close(this.database);
   }
 }
+  async showList() {
+    const result = await promisifiedDatabaseFunctions.all(
+      this.database,
+      "SELECT title FROM memo",
+    );
+    result.forEach((result) => {
+      console.log(result.title);
+    });
+  }
 
 export default Manager;

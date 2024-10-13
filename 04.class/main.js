@@ -33,4 +33,6 @@ if (!options.list && !options.reference && !options.delete) {
   rl.on("close", async () => {
     await memoManager.add(lines[0], lines.slice(1).join("\n"));
   });
+} else if (options.list) {
+  memoManager.showList();
 }
