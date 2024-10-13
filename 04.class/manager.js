@@ -17,19 +17,13 @@ class Manager {
     await promisifiedDatabaseFunctions.close(this.database);
   }
   async showList() {
-    const result = await promisifiedDatabaseFunctions.all(
-      this.database,
-      "SELECT title FROM memo",
-    );
-    result.forEach((result) => {
-      console.log(result.title);
+    const notes = await this.#getAllNotes();
+    notes.forEach((note) => {
+      console.log(note.title);
     });
   }
   async refer() {
-    const notes = await promisifiedDatabaseFunctions.all(
-      this.database,
-      "SELECT title , body  FROM memo",
-    );
+    const notes = await this.#getAllNotes();
     const question = {
       type: "select",
       name: "note",
@@ -50,10 +44,7 @@ class Manager {
   }
 
   async delete() {
-    const notes = await promisifiedDatabaseFunctions.all(
-      this.database,
-      "SELECT id, title, body FROM memo",
-    );
+    const notes = await this.#getAllNotes();
     if (notes.length > 0) {
       const choices = notes.map((note) => ({
         name: note.title,
@@ -82,6 +73,12 @@ class Manager {
       );
       console.log(`${answer.note.title} is deleated.`);
     }
+  }
+  async #getAllNotes() {
+    return await promisifiedDatabaseFunctions.all(
+      this.database,
+      "SELECT id, title, body FROM memo",
+    );
   }
 }
 export default Manager;
