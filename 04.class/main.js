@@ -37,4 +37,6 @@ if (!options.list && !options.reference && !options.delete) {
   memoManager.showList();
 } else if (options.reference) {
   memoManager.refer();
+} else if (options.delete) {
+  memoManager.delete();
 }

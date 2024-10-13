@@ -48,5 +48,40 @@ class Manager {
     let answer = await enquirer.prompt(question);
     console.log(`${answer.note.title}\n${answer.note.body}`);
   }
+
+  async delete() {
+    const notes = await promisifiedDatabaseFunctions.all(
+      this.database,
+      "SELECT id, title, body FROM memo",
+    );
+    if (notes.length > 0) {
+      const choices = notes.map((note) => ({
+        name: note.title,
+        value: note,
+        message: note.title,
+      }));
+
+      const question = {
+        type: "select",
+        name: "note",
+        message: "Choose a note you want to see:",
+        footer() {
+          return notes[this.index].body;
+        },
+        choices: choices,
+        result() {
+          return this.focused.value;
+        },
+      };
+
+      let answer = await enquirer.prompt(question);
+      await promisifiedDatabaseFunctions.run(
+        this.database,
+        "DELETE FROM memo WHERE id = $id",
+        { $id: answer.note.id },
+      );
+      console.log(`${answer.note.title} is deleated.`);
+    }
+  }
 }
 export default Manager;
