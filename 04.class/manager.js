@@ -1,3 +1,4 @@
+import enquirer from "enquirer";
 import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 class Manager {
   constructor(database) {
@@ -15,7 +16,6 @@ class Manager {
     );
     await promisifiedDatabaseFunctions.close(this.database);
   }
-}
   async showList() {
     const result = await promisifiedDatabaseFunctions.all(
       this.database,
@@ -25,5 +25,28 @@ class Manager {
       console.log(result.title);
     });
   }
+  async refer() {
+    const notes = await promisifiedDatabaseFunctions.all(
+      this.database,
+      "SELECT title , body  FROM memo",
+    );
+    const question = {
+      type: "select",
+      name: "note",
+      message: "Choose a note you want to see:",
+      footer() {
+        return notes[this.index].body;
+      },
+      choices: notes.map((note) => {
+        return { name: note.title, message: note.title, value: note };
+      }),
+      result() {
+        return this.focused.value;
+      },
+    };
 
+    let answer = await enquirer.prompt(question);
+    console.log(`${answer.note.title}\n${answer.note.body}`);
+  }
+}
 export default Manager;

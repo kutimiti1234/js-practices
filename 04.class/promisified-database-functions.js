@@ -22,6 +22,18 @@ function get(database, sql, param) {
   });
 }
 
+function all(database, sql, param) {
+  return new Promise((resolve, reject) => {
+    database.all(sql, param, (error, rows) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+}
+
 function close(database) {
   return new Promise((resolve, reject) => {
     database.close((error) => {
@@ -33,4 +45,4 @@ function close(database) {
     });
   });
 }
-export default { run, get, close };
+export default { run, get, all, close };

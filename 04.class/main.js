@@ -31,9 +31,10 @@ if (!options.list && !options.reference && !options.delete) {
     lines.push(line);
   });
   rl.on("close", async () => {
-    await memoManager.add(lines[0], lines.slice(1).join("\n"));
     await memoManager.add(lines[0], lines.slice(1).join("\n").trimEnd());
   });
 } else if (options.list) {
   memoManager.showList();
+} else if (options.reference) {
+  memoManager.refer();
 }
