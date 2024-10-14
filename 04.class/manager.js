@@ -21,6 +21,7 @@ class Manager {
     notes.forEach((note) => {
       console.log(note.title);
     });
+    await promisifiedDatabaseFunctions.close(this.database);
   }
   async refer() {
     const notes = await this.#getAllNotes();
@@ -45,6 +46,7 @@ class Manager {
       };
       let answer = await enquirer.prompt(question);
       console.log(`${answer.note.title}\n${answer.note.body}`);
+      await promisifiedDatabaseFunctions.close(this.database);
     }
   }
 
@@ -78,6 +80,7 @@ class Manager {
       );
       console.log(`${answer.note.title} is deleated.`);
     }
+    await promisifiedDatabaseFunctions.close(this.database);
   }
   async #getAllNotes() {
     return await promisifiedDatabaseFunctions.all(
