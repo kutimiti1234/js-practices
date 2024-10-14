@@ -1,5 +1,6 @@
 import enquirer from "enquirer";
 import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
+
 class Manager {
   constructor(database) {
     this.database = database;
@@ -8,7 +9,7 @@ class Manager {
   async add(title, body) {
     await promisifiedDatabaseFunctions.run(
       this.database,
-      "INSERT INTO memo(title,body) values($title,$body)",
+      "INSERT INTO memo(title, body) values($title, $body)",
       {
         $title: title,
         $body: body,
@@ -16,6 +17,7 @@ class Manager {
     );
     await promisifiedDatabaseFunctions.close(this.database);
   }
+
   async showList() {
     const notes = await this.#getAllNotes();
     notes.forEach((note) => {
@@ -23,6 +25,7 @@ class Manager {
     });
     await promisifiedDatabaseFunctions.close(this.database);
   }
+
   async refer() {
     const notes = await this.#getAllNotes();
     if (notes.length > 0) {
@@ -82,6 +85,7 @@ class Manager {
     }
     await promisifiedDatabaseFunctions.close(this.database);
   }
+
   async #getAllNotes() {
     return await promisifiedDatabaseFunctions.all(
       this.database,
