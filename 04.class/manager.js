@@ -24,23 +24,28 @@ class Manager {
   }
   async refer() {
     const notes = await this.#getAllNotes();
-    const question = {
-      type: "select",
-      name: "note",
-      message: "Choose a note you want to see:",
-      footer() {
-        return notes[this.index].body;
-      },
-      choices: notes.map((note) => {
-        return { name: note.title, message: note.title, value: note };
-      }),
-      result() {
-        return this.focused.value;
-      },
-    };
+    if (notes.length > 0) {
+      const choices = notes.map((note) => ({
+        name: note.title,
+        value: note,
+        message: note.title,
+      }));
 
-    let answer = await enquirer.prompt(question);
-    console.log(`${answer.note.title}\n${answer.note.body}`);
+      const question = {
+        type: "select",
+        name: "note",
+        message: "Choose a note you want to see:",
+        footer() {
+          return notes[this.index].body;
+        },
+        choices: choices,
+        result() {
+          return this.focused.value;
+        },
+      };
+      let answer = await enquirer.prompt(question);
+      console.log(`${answer.note.title}\n${answer.note.body}`);
+    }
   }
 
   async delete() {
