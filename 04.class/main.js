@@ -19,7 +19,7 @@ await promisifiedDatabaseFunctions.run(
   database,
   "CREATE TABLE IF NOT EXISTS memo(id INTEGER PRIMARY KEY AUTOINCREMENT, title NOT NULL, body NOT NULL)",
 );
-const memoManager = new Manager(database);
+const notesManager = new Manager(database);
 
 if (!options.list && !options.reference && !options.delete) {
   const rl = readline.createInterface({
@@ -31,12 +31,12 @@ if (!options.list && !options.reference && !options.delete) {
     lines.push(line);
   });
   rl.on("close", async () => {
-    await memoManager.add(lines[0], lines.slice(1).join("\n").trimEnd());
+    await notesManager.add(lines[0], lines.slice(1).join("\n").trimEnd());
   });
 } else if (options.list) {
-  memoManager.showList();
+  notesManager.showList();
 } else if (options.reference) {
-  memoManager.refer();
+  notesManager.refer();
 } else if (options.delete) {
-  memoManager.delete();
+  notesManager.delete();
 }
