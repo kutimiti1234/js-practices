@@ -57,7 +57,7 @@ class Manager {
       const question = {
         type: "select",
         name: "note",
-        message: "Choose a note you want to see:",
+        message: "Choose a note you want to delete:",
         footer() {
           return notes[this.index].body;
         },
