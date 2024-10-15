@@ -29,11 +29,7 @@ class Manager {
   async refer() {
     const notes = await this.#fetchAllNotes();
     if (notes.length > 0) {
-      const choices = notes.map((note) => ({
-        name: note.title,
-        value: note,
-        message: note.title,
-      }));
+      const choices = this.#prepareChoices(notes);
 
       const question = {
         type: "select",
@@ -56,11 +52,7 @@ class Manager {
   async delete() {
     const notes = await this.#fetchAllNotes();
     if (notes.length > 0) {
-      const choices = notes.map((note) => ({
-        name: note.title,
-        value: note,
-        message: note.title,
-      }));
+      const choices = this.#prepareChoices(notes);
 
       const question = {
         type: "select",
@@ -91,6 +83,13 @@ class Manager {
       this.database,
       "SELECT id, title, body FROM memo",
     );
+  }
+  #prepareChoices(notes) {
+    return notes.map((note) => ({
+      name: note.title,
+      value: note,
+      message: note.title,
+    }));
   }
 }
 export default Manager;
