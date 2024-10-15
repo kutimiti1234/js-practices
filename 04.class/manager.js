@@ -19,7 +19,7 @@ class Manager {
   }
 
   async showList() {
-    const notes = await this.#getAllNotes();
+    const notes = await this.#fetchAllNotes();
     notes.forEach((note) => {
       console.log(note.title);
     });
@@ -27,7 +27,7 @@ class Manager {
   }
 
   async refer() {
-    const notes = await this.#getAllNotes();
+    const notes = await this.#fetchAllNotes();
     if (notes.length > 0) {
       const choices = notes.map((note) => ({
         name: note.title,
@@ -54,7 +54,7 @@ class Manager {
   }
 
   async delete() {
-    const notes = await this.#getAllNotes();
+    const notes = await this.#fetchAllNotes();
     if (notes.length > 0) {
       const choices = notes.map((note) => ({
         name: note.title,
@@ -86,7 +86,7 @@ class Manager {
     await promisifiedDatabaseFunctions.close(this.database);
   }
 
-  async #getAllNotes() {
+  async #fetchAllNotes() {
     return await promisifiedDatabaseFunctions.all(
       this.database,
       "SELECT id, title, body FROM memo",
