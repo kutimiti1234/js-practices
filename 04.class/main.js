@@ -26,7 +26,7 @@ if (!options.list && !options.reference && !options.delete) {
     input: process.stdin,
     output: process.stdout,
   });
-  let lines = [];
+  const lines = [];
   rl.on("line", (line) => {
     lines.push(line);
   });

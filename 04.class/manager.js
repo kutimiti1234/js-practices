@@ -44,7 +44,7 @@ class Manager {
         },
       };
 
-      let answer = await enquirer.prompt(question);
+      const answer = await enquirer.prompt(question);
       console.log(`${answer.note.title}\n${answer.note.body}`);
     }
     await promisifiedDatabaseFunctions.close(this.database);
@@ -68,7 +68,7 @@ class Manager {
         },
       };
 
-      let answer = await enquirer.prompt(question);
+      const answer = await enquirer.prompt(question);
       await promisifiedDatabaseFunctions.run(
         this.database,
         "DELETE FROM memo WHERE id = $id",
