@@ -44,9 +44,18 @@ class Manager {
         },
       };
 
-      const answer = await enquirer.prompt(question);
-      console.log(`${answer.note.title}\n${answer.note.body}`);
+      try {
+        const answer = await enquirer.prompt(question);
+        console.log(`${answer.note.title}\n${answer.note.body}`);
+      } catch (error) {
+        if (error === "") {
+          console.error(error);
+        } else {
+          throw error;
+        }
+      }
     }
+
     await promisifiedDatabaseFunctions.close(this.database);
   }
 
@@ -68,14 +77,23 @@ class Manager {
         },
       };
 
-      const answer = await enquirer.prompt(question);
-      await promisifiedDatabaseFunctions.run(
-        this.database,
-        "DELETE FROM memo WHERE id = $id",
-        { $id: answer.note.id },
-      );
-      console.log(`${answer.note.title} is deleated.`);
+      try {
+        const answer = await enquirer.prompt(question);
+        await promisifiedDatabaseFunctions.run(
+          this.database,
+          "DELETE FROM memo WHERE id = $id",
+          { $id: answer.note.id },
+        );
+        console.log(`${answer.note.title} is deleated.`);
+      } catch (error) {
+        if (error === "") {
+          console.error(error);
+        } else {
+          throw error;
+        }
+      }
     }
+
     await promisifiedDatabaseFunctions.close(this.database);
   }
 
