@@ -30,6 +30,9 @@ if (!options.list && !options.reference && !options.delete) {
   rl.on("line", (line) => {
     lines.push(line);
   });
+  rl.on("SIGINT", () => {
+    process.exit(1);
+  });
   rl.on("close", async () => {
     await notesManager.add(lines[0], lines.slice(1).join("\n"));
   });
