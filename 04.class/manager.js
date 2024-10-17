@@ -43,6 +43,7 @@ class Manager {
           return this.focused.value;
         },
       };
+
       let answer = await enquirer.prompt(question);
       console.log(`${answer.note.title}\n${answer.note.body}`);
       await promisifiedDatabaseFunctions.close(this.database);
