@@ -31,7 +31,7 @@ if (!options.list && !options.reference && !options.delete) {
     lines.push(line);
   });
   rl.on("close", async () => {
-    await notesManager.add(lines[0], lines.slice(1).join("\n").trimEnd());
+    await notesManager.add(lines[0], lines.slice(1).join("\n"));
   });
 } else if (options.list) {
   notesManager.showList();
