@@ -11,7 +11,7 @@ class Manager {
       this.database,
       "INSERT INTO memo(title, body) values($title, $body)",
       {
-        $title: title,
+        $title: title ?? "No title",
         $body: body,
       },
     );
