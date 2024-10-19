@@ -17,7 +17,7 @@ const options = minimist(process.argv.slice(2), {
 const database = new sqlite3.Database(".sqlite3");
 await promisifiedDatabaseFunctions.run(
   database,
-  "CREATE TABLE IF NOT EXISTS memo(id INTEGER PRIMARY KEY AUTOINCREMENT, title NOT NULL, body NOT NULL)",
+  "CREATE TABLE IF NOT EXISTS note(id INTEGER PRIMARY KEY AUTOINCREMENT, title NOT NULL, body NOT NULL)",
 );
 const notesManager = new Manager(database);
 

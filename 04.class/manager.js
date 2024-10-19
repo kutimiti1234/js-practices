@@ -9,7 +9,7 @@ class Manager {
   async add(title, body) {
     await promisifiedDatabaseFunctions.run(
       this.database,
-      "INSERT INTO memo(title, body) values($title, $body)",
+      "INSERT INTO note(title, body) values($title, $body)",
       {
         $title: title ?? "No title",
         $body: body,
@@ -82,7 +82,7 @@ class Manager {
         const answer = await enquirer.prompt(question);
         await promisifiedDatabaseFunctions.run(
           this.database,
-          "DELETE FROM memo WHERE id = $id",
+          "DELETE FROM note WHERE id = $id",
           { $id: answer.note.id },
         );
         console.log(`${answer.note.title} is deleated.`);
