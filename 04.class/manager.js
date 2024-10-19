@@ -102,7 +102,7 @@ class Manager {
   async #fetchAllNotes() {
     return await promisifiedDatabaseFunctions.all(
       this.database,
-      "SELECT id, title, body FROM memo",
+      "SELECT id, title, body FROM note",
     );
   }
   #prepareChoices(notes) {
