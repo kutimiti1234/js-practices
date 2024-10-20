@@ -2,7 +2,7 @@ import enquirer from "enquirer";
 import sqlite3 from "sqlite3";
 import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 
-class Manager {
+class MemoManager {
   constructor() {
     this.database = new sqlite3.Database("sqlite3");
   }
@@ -121,4 +121,4 @@ class Manager {
     });
   }
 }
-export default Manager;
+export default MemoManager;
