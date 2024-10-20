@@ -42,7 +42,7 @@ class MemoManager {
     const question = {
       type: "select",
       name: "memo",
-      message: "Choose a note you want to see:",
+      message: "Choose a memo you want to see:",
       choices: choices,
       footer() {
         return memos[this.index].content;
@@ -74,7 +74,7 @@ class MemoManager {
     const question = {
       type: "select",
       name: "memo",
-      message: "Choose a note you want to see:",
+      message: "Choose a memo you want to see:",
       choices: choices,
       footer() {
         return memos[this.index].content;
