@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 
 import minimist from "minimist";
-import promisifiedinputhelper from "./promisified-iput-helper";
-import Manager from "./manager.js";
+import promisifiedinputhelper from "./promisified-input-helper.js";
+import MemoManager from "./memo-manager.js";
 
 const options = minimist(process.argv.slice(2), {
   alias: {
@@ -12,7 +12,7 @@ const options = minimist(process.argv.slice(2), {
   },
 });
 
-const memoManager = new Manager();
+const memoManager = new MemoManager();
 await memoManager.createTable();
 
 if (options.list) {
