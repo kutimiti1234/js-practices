@@ -57,7 +57,6 @@ class Manager {
         console.log(`${answer.note.title}\n${answer.note.body}`);
       } catch (error) {
         if (error === "") {
-          console.error(error);
           process.exit(130);
         } else {
           throw error;
@@ -96,7 +95,6 @@ class Manager {
         console.log(`${answer.note.title} is deleated.`);
       } catch (error) {
         if (error === "") {
-          console.error(error);
           process.exit(130);
         } else {
           throw error;
