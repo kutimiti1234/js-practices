@@ -22,6 +22,6 @@ if (options.list) {
 } else if (options.delete) {
   memoManager.delete();
 } else {
-  const lines = await promisifiedReadlineFunctions.inputLines();
-  await memoManager.add(lines[0], lines.slice(1).join("\n"));
+  const memoContent = await promisifiedReadlineFunctions.inputMemoContent();
+  await memoManager.add(memoContent);
 }

@@ -10,44 +10,43 @@ class Manager {
   async createTable() {
     await promisifiedDatabaseFunctions.run(
       this.database,
-      "CREATE TABLE IF NOT EXISTS note(id INTEGER PRIMARY KEY AUTOINCREMENT, title NOT NULL, body NOT NULL)",
+      "CREATE TABLE IF NOT EXISTS memos(id INTEGER PRIMARY KEY AUTOINCREMENT,content NOT NULL)",
     );
   }
 
-  async add(title, body) {
+  async add(content) {
     await promisifiedDatabaseFunctions.run(
       this.database,
-      "INSERT INTO note(title, body) values($title, $body)",
+      "INSERT INTO memos(content) values($content)",
       {
-        $title: title ?? "No title",
-        $body: body,
+        $content: content ?? "No title",
       },
     );
     await promisifiedDatabaseFunctions.close(this.database);
   }
 
   async showList() {
-    const notes = await this.#fetchAllNotes();
-    notes.forEach((note) => {
-      console.log(note.title);
+    const memos = await this.#fetchAllMemos();
+    memos.forEach((memo) => {
+      console.log(memo.title);
     });
   }
 
   async refer() {
-    const notes = await this.#fetchAllNotes();
-    if (notes.length === 0) {
+    const memos = await this.#fetchAllMemos();
+    await promisifiedDatabaseFunctions.close(this.database);
+    if (memos.length === 0) {
       return;
     }
-    const choices = this.#prepareChoices(notes);
-
+    const choices = this.#prepareChoices(memos);
     const question = {
       type: "select",
-      name: "note",
+      name: "memo",
       message: "Choose a note you want to see:",
-      footer() {
-        return notes[this.index].body;
-      },
       choices: choices,
+      footer() {
+        return memos[this.index].content;
+      },
       result() {
         return this.focused.value;
       },
@@ -55,7 +54,7 @@ class Manager {
 
     try {
       const answer = await enquirer.prompt(question);
-      console.log(`${answer.note.title}\n${answer.note.body}`);
+      console.log(`${answer.memo.content}`);
     } catch (error) {
       if (error === "") {
         process.exit(130);
@@ -66,20 +65,20 @@ class Manager {
   }
 
   async delete() {
-    const notes = await this.#fetchAllNotes();
-    if (notes.length === 0) {
+    const memos = await this.#fetchAllMemos();
+    if (memos.length === 0) {
       return;
     }
-    const choices = this.#prepareChoices(notes);
+    const choices = this.#prepareChoices(memos);
 
     const question = {
       type: "select",
-      name: "note",
-      message: "Choose a note you want to delete:",
-      footer() {
-        return notes[this.index].body;
-      },
+      name: "memo",
+      message: "Choose a note you want to see:",
       choices: choices,
+      footer() {
+        return memos[this.index].content;
+      },
       result() {
         return this.focused.value;
       },
@@ -89,10 +88,11 @@ class Manager {
       const answer = await enquirer.prompt(question);
       await promisifiedDatabaseFunctions.run(
         this.database,
-        "DELETE FROM note WHERE id = $id",
-        { $id: answer.note.id },
+        "DELETE FROM memos WHERE id = $id",
+        { $id: answer.memo.id },
       );
-      console.log(`${answer.note.title} is deleated.`);
+      await promisifiedDatabaseFunctions.close(this.database);
+      console.log(`${answer.memo.content} is deleted.`);
     } catch (error) {
       if (error === "") {
         process.exit(130);
@@ -102,21 +102,23 @@ class Manager {
     }
   }
 
-  async #fetchAllNotes() {
-    const notes = await promisifiedDatabaseFunctions.all(
+  async #fetchAllMemos() {
+    const memos = await promisifiedDatabaseFunctions.all(
       this.database,
-      "SELECT id, title, body FROM note",
+      "SELECT id, content FROM memos",
     );
-    await promisifiedDatabaseFunctions.close(this.database);
-    return notes;
+    return memos;
   }
 
-  #prepareChoices(notes) {
-    return notes.map((note) => ({
-      name: note.title,
-      value: note,
-      message: note.title,
-    }));
+  #prepareChoices(memos) {
+    return memos.map((memo) => {
+      let memoTitle = memo.content.split("\n")[0];
+      return {
+        name: memoTitle,
+        value: memo,
+        message: memoTitle,
+      };
+    });
   }
 }
 export default Manager;
