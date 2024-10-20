@@ -28,9 +28,7 @@ class MemoManager {
   async showList() {
     const memos = await this.#fetchAllMemos();
     memos
-      .map((memo) => {
-        return memo.content.split("\n")[0];
-      })
+      .map((memo) => memo.content.split("\n")[0])
       .forEach((title) => {
         console.log(title);
       });
