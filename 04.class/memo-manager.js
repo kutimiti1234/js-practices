@@ -27,9 +27,13 @@ class MemoManager {
 
   async showList() {
     const memos = await this.#fetchAllMemos();
-    memos.forEach((memo) => {
-      console.log(memo.title);
-    });
+    memos
+      .map((memo) => {
+        return memo.content.split("\n")[0];
+      })
+      .forEach((title) => {
+        console.log(title);
+      });
   }
 
   async refer() {
