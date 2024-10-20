@@ -35,67 +35,69 @@ class Manager {
 
   async refer() {
     const notes = await this.#fetchAllNotes();
-    if (notes.length > 0) {
-      const choices = this.#prepareChoices(notes);
+    if (notes.length === 0) {
+      return;
+    }
+    const choices = this.#prepareChoices(notes);
 
-      const question = {
-        type: "select",
-        name: "note",
-        message: "Choose a note you want to see:",
-        footer() {
-          return notes[this.index].body;
-        },
-        choices: choices,
-        result() {
-          return this.focused.value;
-        },
-      };
+    const question = {
+      type: "select",
+      name: "note",
+      message: "Choose a note you want to see:",
+      footer() {
+        return notes[this.index].body;
+      },
+      choices: choices,
+      result() {
+        return this.focused.value;
+      },
+    };
 
-      try {
-        const answer = await enquirer.prompt(question);
-        console.log(`${answer.note.title}\n${answer.note.body}`);
-      } catch (error) {
-        if (error === "") {
-          process.exit(130);
-        } else {
-          throw error;
-        }
+    try {
+      const answer = await enquirer.prompt(question);
+      console.log(`${answer.note.title}\n${answer.note.body}`);
+    } catch (error) {
+      if (error === "") {
+        process.exit(130);
+      } else {
+        throw error;
       }
     }
   }
 
   async delete() {
     const notes = await this.#fetchAllNotes();
-    if (notes.length > 0) {
-      const choices = this.#prepareChoices(notes);
+    if (notes.length === 0) {
+      return;
+    }
+    const choices = this.#prepareChoices(notes);
 
-      const question = {
-        type: "select",
-        name: "note",
-        message: "Choose a note you want to delete:",
-        footer() {
-          return notes[this.index].body;
-        },
-        choices: choices,
-        result() {
-          return this.focused.value;
-        },
-      };
+    const question = {
+      type: "select",
+      name: "note",
+      message: "Choose a note you want to delete:",
+      footer() {
+        return notes[this.index].body;
+      },
+      choices: choices,
+      result() {
+        return this.focused.value;
+      },
+    };
 
-      try {
-        const answer = await enquirer.prompt(question);
-        await promisifiedDatabaseFunctions.run(
-          this.database,
-          "DELETE FROM note WHERE id = $id",
-          { $id: answer.note.id },
-        );
-        console.log(`${answer.note.title} is deleated.`);
-      } catch (error) {
-        if (error === "") {
-          process.exit(130);
-        } else {
-          throw error;
-        }
+    try {
+      const answer = await enquirer.prompt(question);
+      await promisifiedDatabaseFunctions.run(
+        this.database,
+        "DELETE FROM note WHERE id = $id",
+        { $id: answer.note.id },
+      );
+      console.log(`${answer.note.title} is deleated.`);
+    } catch (error) {
+      if (error === "") {
+        process.exit(130);
+      } else {
+        throw error;
       }
     }
   }
