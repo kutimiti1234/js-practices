@@ -4,7 +4,7 @@ import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 
 class Manager {
   constructor() {
-    this.database = new sqlite3.Database(".sqlite3");
+    this.database = new sqlite3.Database("sqlite3");
   }
 
   async createTable() {

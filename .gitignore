@@ -127,4 +127,4 @@ dist
 .pnp.*
 
 # database
-.sqlite3
+sqlite3
