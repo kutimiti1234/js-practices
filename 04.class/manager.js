@@ -31,7 +31,6 @@ class Manager {
     notes.forEach((note) => {
       console.log(note.title);
     });
-    await promisifiedDatabaseFunctions.close(this.database);
   }
 
   async refer() {
@@ -63,8 +62,6 @@ class Manager {
         }
       }
     }
-
-    await promisifiedDatabaseFunctions.close(this.database);
   }
 
   async delete() {
@@ -101,15 +98,15 @@ class Manager {
         }
       }
     }
-
-    await promisifiedDatabaseFunctions.close(this.database);
   }
 
   async #fetchAllNotes() {
-    return await promisifiedDatabaseFunctions.all(
+    const notes = await promisifiedDatabaseFunctions.all(
       this.database,
       "SELECT id, title, body FROM note",
     );
+    await promisifiedDatabaseFunctions.close(this.database);
+    return notes;
   }
 
   #prepareChoices(notes) {
