@@ -1,10 +1,8 @@
 #! /usr/bin/env node
 
 import minimist from "minimist";
-import sqlite3 from "sqlite3";
 import readline from "readline";
 import Manager from "./manager.js";
-import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 
 const options = minimist(process.argv.slice(2), {
   alias: {
@@ -14,12 +12,8 @@ const options = minimist(process.argv.slice(2), {
   },
 });
 
-const database = new sqlite3.Database(".sqlite3");
-await promisifiedDatabaseFunctions.run(
-  database,
-  "CREATE TABLE IF NOT EXISTS note(id INTEGER PRIMARY KEY AUTOINCREMENT, title NOT NULL, body NOT NULL)",
-);
-const notesManager = new Manager(database);
+const memoManager = new Manager();
+await memoManager.createTable();
 
 if (!options.list && !options.reference && !options.delete) {
   const rl = readline.createInterface({
@@ -34,12 +28,12 @@ if (!options.list && !options.reference && !options.delete) {
     process.exit(130);
   });
   rl.on("close", async () => {
-    await notesManager.add(lines[0], lines.slice(1).join("\n"));
+    await memoManager.add(lines[0], lines.slice(1).join("\n"));
   });
 } else if (options.list) {
-  notesManager.showList();
+  memoManager.showList();
 } else if (options.reference) {
-  notesManager.refer();
+  memoManager.refer();
 } else if (options.delete) {
-  notesManager.delete();
+  memoManager.delete();
 }

@@ -1,9 +1,17 @@
 import enquirer from "enquirer";
+import sqlite3 from "sqlite3";
 import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 
 class Manager {
-  constructor(database) {
-    this.database = database;
+  constructor() {
+    this.database = new sqlite3.Database(".sqlite3");
+  }
+
+  async createTable() {
+    await promisifiedDatabaseFunctions.run(
+      this.database,
+      "CREATE TABLE IF NOT EXISTS note(id INTEGER PRIMARY KEY AUTOINCREMENT, title NOT NULL, body NOT NULL)",
+    );
   }
 
   async add(title, body) {
@@ -105,6 +113,7 @@ class Manager {
       "SELECT id, title, body FROM note",
     );
   }
+
   #prepareChoices(notes) {
     return notes.map((note) => ({
       name: note.title,
