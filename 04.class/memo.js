@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import minimist from "minimist";
-import promisifiedReadlineFunctions from "./promisified-readline-functions.js";
+import promisifiedinputhelper from "./promisified-iput-helper";
 import Manager from "./manager.js";
 
 const options = minimist(process.argv.slice(2), {
@@ -22,7 +22,7 @@ if (options.list) {
 } else if (options.delete) {
   memoManager.delete();
 } else {
-  const lines = await promisifiedReadlineFunctions.inputLines();
+  const lines = await promisifiedinputhelper.inputLines();
   if (lines[0] === undefined) {
     lines[0] = "No title";
   }
