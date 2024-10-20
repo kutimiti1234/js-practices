@@ -1,6 +1,6 @@
 import readline from "readline";
 
-function inputMemoContent() {
+function inputLines() {
   return new Promise((resolve, reject) => {
     try {
       const rl = readline.createInterface({
@@ -16,7 +16,7 @@ function inputMemoContent() {
         process.exit(130);
       });
       rl.on("close", async () => {
-        resolve(lines.join("\n"));
+        resolve(lines);
       });
     } catch (err) {
       reject(err);
@@ -24,4 +24,4 @@ function inputMemoContent() {
   });
 }
 
-export default { inputMemoContent };
+export default { inputLines };

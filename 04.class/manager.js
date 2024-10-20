@@ -19,7 +19,7 @@ class Manager {
       this.database,
       "INSERT INTO memos(content) values($content)",
       {
-        $content: content ?? "No title",
+        $content: content,
       },
     );
     await promisifiedDatabaseFunctions.close(this.database);
