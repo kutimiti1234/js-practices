@@ -1,32 +1,22 @@
 import enquirer from "enquirer";
-import sqlite3 from "sqlite3";
-import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
+import MemoDatabase from "./memo-database.js";
 
 class MemoManager {
   constructor() {
-    this.database = new sqlite3.Database("sqlite3");
+    this.database = new MemoDatabase();
   }
 
   async createTable() {
-    await promisifiedDatabaseFunctions.run(
-      this.database,
-      "CREATE TABLE IF NOT EXISTS memos(id INTEGER PRIMARY KEY AUTOINCREMENT,content NOT NULL)",
-    );
+    await this.database.createTable();
   }
 
   async add(content) {
-    await promisifiedDatabaseFunctions.run(
-      this.database,
-      "INSERT INTO memos(content) values($content)",
-      {
-        $content: content,
-      },
-    );
-    await promisifiedDatabaseFunctions.close(this.database);
+    await this.database.insert(content);
+    await this.database.close();
   }
 
   async showList() {
-    const memos = await this.#fetchAllMemos();
+    const memos = await this.database.fetchAllMemos();
     memos
       .map((memo) => memo.content.split("\n")[0])
       .forEach((title) => {
@@ -35,8 +25,8 @@ class MemoManager {
   }
 
   async refer() {
-    const memos = await this.#fetchAllMemos();
-    await promisifiedDatabaseFunctions.close(this.database);
+    const memos = await this.database.fetchAllMemos();
+    await this.database.close();
     if (memos.length === 0) {
       return;
     }
@@ -67,7 +57,7 @@ class MemoManager {
   }
 
   async delete() {
-    const memos = await this.#fetchAllMemos();
+    const memos = await this.database.fetchAllMemos();
     if (memos.length === 0) {
       return;
     }
@@ -88,12 +78,8 @@ class MemoManager {
 
     try {
       const answer = await enquirer.prompt(question);
-      await promisifiedDatabaseFunctions.run(
-        this.database,
-        "DELETE FROM memos WHERE id = $id",
-        { $id: answer.memo.id },
-      );
-      await promisifiedDatabaseFunctions.close(this.database);
+      await this.database.delete(answer.memo.id);
+      await this.database.close(this.database);
       console.log(`${answer.memo.content} is deleted.`);
     } catch (error) {
       if (error === "") {
@@ -102,14 +88,6 @@ class MemoManager {
         throw error;
       }
     }
-  }
-
-  async #fetchAllMemos() {
-    const memos = await promisifiedDatabaseFunctions.all(
-      this.database,
-      "SELECT id, content FROM memos",
-    );
-    return memos;
   }
 
   #prepareChoices(memos) {
