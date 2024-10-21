@@ -1,5 +1,6 @@
 import enquirer from "enquirer";
 import MemoDatabase from "./memo-database.js";
+import promisifiedinputhelper from "./promisified-input-helper.js";
 
 class MemoManager {
   constructor() {
@@ -10,7 +11,12 @@ class MemoManager {
     await this.database.createTable();
   }
 
-  async add(content) {
+  async add() {
+    const lines = await promisifiedinputhelper.inputLines();
+    if (lines[0] === undefined) {
+      lines[0] = "No title";
+    }
+    const content = lines.join("\n");
     await this.database.insert(content);
     await this.database.close();
   }
