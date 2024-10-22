@@ -12,7 +12,7 @@ const options = minimist(process.argv.slice(2), {
 });
 
 const memoManager = new MemoManager();
-await memoManager.createTable();
+await memoManager.initializeDatabase();
 
 if (options.list) {
   memoManager.showList();

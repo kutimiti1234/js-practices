@@ -8,7 +8,7 @@ class MemoManager {
     this.#database = new MemoDatabase();
   }
 
-  async createTable() {
+  async initializeDatabase() {
     await this.#database.createTable();
   }
 
