@@ -1,6 +1,6 @@
+import readline from "readline";
 import enquirer from "enquirer";
 import MemoDatabase from "./memo-database.js";
-import promisifiedinputhelper from "./promisified-input-helper.js";
 
 class MemoManager {
   #database;
@@ -14,7 +14,7 @@ class MemoManager {
 
   async add() {
     try {
-      const lines = await promisifiedinputhelper.inputLines();
+      const lines = await this.#inputLines();
 
       const content = lines.join("\n");
       await this.#database.insert(content);
@@ -98,6 +98,35 @@ class MemoManager {
         throw error;
       }
     }
+  }
+
+  async #inputLines() {
+    return new Promise((resolve, reject) => {
+      const rl = readline.createInterface({
+        input: process.stdin,
+      });
+
+      const lines = [];
+
+      rl.on("line", (line) => {
+        lines.push(line);
+      });
+
+      rl.on("SIGINT", () => {
+        process.exit(130);
+      });
+
+      rl.on("close", () => {
+        try {
+          if (lines[0] === undefined) {
+            throw new Error("メモを入力してください。");
+          }
+          resolve(lines);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    });
   }
 
   #prepareChoices(memos) {
