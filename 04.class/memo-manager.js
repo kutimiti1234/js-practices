@@ -97,7 +97,7 @@ class MemoManager {
 
   #prepareChoices(memos) {
     return memos.map((memo) => {
-      let memoTitle = memo.content.split("\n")[0];
+      const memoTitle = memo.content.split("\n")[0];
       return {
         name: memoTitle,
         value: memo,
