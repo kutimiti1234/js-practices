@@ -51,7 +51,7 @@ class MemoManager {
 
     try {
       const answer = await enquirer.prompt(question);
-      console.log(`${answer.memo.content}`);
+      console.log(answer.memo.content);
     } catch (error) {
       if (error === "") {
         process.exit(130);
