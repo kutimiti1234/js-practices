@@ -4,6 +4,7 @@ import MemoDatabase from "./memo-database.js";
 
 class MemoManager {
   #database;
+
   constructor() {
     this.#database = new MemoDatabase();
   }
@@ -15,8 +16,8 @@ class MemoManager {
   async add() {
     try {
       const lines = await this.#inputLines();
-
       const content = lines.join("\n");
+
       await this.#database.insert(content);
     } catch (error) {
       if (error instanceof Error) {
@@ -37,9 +38,11 @@ class MemoManager {
   async refer() {
     const memos = await this.#database.selectAllMemos();
     await this.#database.close();
+
     if (memos.length === 0) {
       return;
     }
+
     const choices = this.#prepareChoices(memos);
     const question = {
       type: "select",
@@ -68,11 +71,12 @@ class MemoManager {
 
   async delete() {
     const memos = await this.#database.selectAllMemos();
+
     if (memos.length === 0) {
       return;
     }
-    const choices = this.#prepareChoices(memos);
 
+    const choices = this.#prepareChoices(memos);
     const question = {
       type: "select",
       name: "memo",
@@ -88,8 +92,10 @@ class MemoManager {
 
     try {
       const answer = await enquirer.prompt(question);
+
       await this.#database.delete(answer.memo.id);
       await this.#database.close(this.#database);
+
       console.log(`${answer.memo.content} is deleted.`);
     } catch (error) {
       if (error === "") {
@@ -135,6 +141,7 @@ class MemoManager {
         memo.content.split("\n")[0] === ""
           ? "No title"
           : memo.content.split("\n")[0];
+
       return {
         name: memoTitle,
         value: memo,
