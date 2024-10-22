@@ -40,7 +40,7 @@ class MemoManager {
       type: "select",
       name: "memo",
       message: "Choose a memo you want to see:",
-      choices: choices,
+      choices,
       footer() {
         return memos[this.index].content;
       },
@@ -72,7 +72,7 @@ class MemoManager {
       type: "select",
       name: "memo",
       message: "Choose a memo you want to see:",
-      choices: choices,
+      choices,
       footer() {
         return memos[this.index].content;
       },
