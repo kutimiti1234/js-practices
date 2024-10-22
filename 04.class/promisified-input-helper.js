@@ -14,7 +14,7 @@ function inputLines() {
       rl.on("SIGINT", () => {
         process.exit(130);
       });
-      rl.on("close", async () => {
+      rl.on("close", () => {
         resolve(lines);
       });
     } catch (err) {
