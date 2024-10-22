@@ -23,7 +23,7 @@ class MemoDatabase {
     );
   }
 
-  async fetchAllMemos() {
+  async selectAllMemos() {
     const memos = await promisifiedDatabaseFunctions.all(
       this.#database,
       "SELECT id, content FROM memos",
