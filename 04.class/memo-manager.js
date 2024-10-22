@@ -24,11 +24,9 @@ class MemoManager {
 
   async showList() {
     const memos = await this.#database.fetchAllMemos();
-    memos
-      .map((memo) => memo.content.split("\n")[0])
-      .forEach((title) => {
-        console.log(title);
-      });
+    memos.forEach((memo) => {
+      console.log(memo.content.split("\n")[0]);
+    });
   }
 
   async refer() {
