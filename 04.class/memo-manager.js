@@ -13,12 +13,17 @@ class MemoManager {
   }
 
   async add() {
-    const lines = await promisifiedinputhelper.inputLines();
-    if (lines[0] === undefined) {
-      lines[0] = "No title";
+    try {
+      const lines = await promisifiedinputhelper.inputLines();
+
+      const content = lines.join("\n");
+      await this.#database.insert(content);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
     }
-    const content = lines.join("\n");
-    await this.#database.insert(content);
+
     await this.#database.close();
   }
 
