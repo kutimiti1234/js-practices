@@ -3,12 +3,13 @@ import MemoDatabase from "./memo-database.js";
 import promisifiedinputhelper from "./promisified-input-helper.js";
 
 class MemoManager {
+  #database;
   constructor() {
-    this.database = new MemoDatabase();
+    this.#database = new MemoDatabase();
   }
 
   async createTable() {
-    await this.database.createTable();
+    await this.#database.createTable();
   }
 
   async add() {
@@ -17,12 +18,12 @@ class MemoManager {
       lines[0] = "No title";
     }
     const content = lines.join("\n");
-    await this.database.insert(content);
-    await this.database.close();
+    await this.#database.insert(content);
+    await this.#database.close();
   }
 
   async showList() {
-    const memos = await this.database.fetchAllMemos();
+    const memos = await this.#database.fetchAllMemos();
     memos
       .map((memo) => memo.content.split("\n")[0])
       .forEach((title) => {
@@ -31,8 +32,8 @@ class MemoManager {
   }
 
   async refer() {
-    const memos = await this.database.fetchAllMemos();
-    await this.database.close();
+    const memos = await this.#database.fetchAllMemos();
+    await this.#database.close();
     if (memos.length === 0) {
       return;
     }
@@ -63,7 +64,7 @@ class MemoManager {
   }
 
   async delete() {
-    const memos = await this.database.fetchAllMemos();
+    const memos = await this.#database.fetchAllMemos();
     if (memos.length === 0) {
       return;
     }
@@ -84,8 +85,8 @@ class MemoManager {
 
     try {
       const answer = await enquirer.prompt(question);
-      await this.database.delete(answer.memo.id);
-      await this.database.close(this.database);
+      await this.#database.delete(answer.memo.id);
+      await this.#database.close(this.#database);
       console.log(`${answer.memo.content} is deleted.`);
     } catch (error) {
       if (error === "") {
