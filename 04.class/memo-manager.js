@@ -28,14 +28,14 @@ class MemoManager {
   }
 
   async showList() {
-    const memos = await this.#database.fetchAllMemos();
+    const memos = await this.#database.selectAllMemos();
     memos.forEach((memo) => {
       console.log(memo.content.split("\n")[0]);
     });
   }
 
   async refer() {
-    const memos = await this.#database.fetchAllMemos();
+    const memos = await this.#database.selectAllMemos();
     await this.#database.close();
     if (memos.length === 0) {
       return;
@@ -67,7 +67,7 @@ class MemoManager {
   }
 
   async delete() {
-    const memos = await this.#database.fetchAllMemos();
+    const memos = await this.#database.selectAllMemos();
     if (memos.length === 0) {
       return;
     }
