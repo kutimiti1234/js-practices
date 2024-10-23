@@ -106,7 +106,7 @@ class MemoManager {
     }
   }
 
-  async #inputLines() {
+  #inputLines() {
     return new Promise((resolve, reject) => {
       const rl = readline.createInterface({
         input: process.stdin,
