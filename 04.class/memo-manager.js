@@ -125,7 +125,7 @@ class MemoManager {
       rl.on("close", () => {
         try {
           if (lines[0] === undefined) {
-            throw new Error("メモを入力してください。");
+            throw new Error("Please enter a memo.");
           }
           resolve(lines);
         } catch (error) {
