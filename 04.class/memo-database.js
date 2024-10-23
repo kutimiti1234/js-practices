@@ -1,5 +1,6 @@
 import sqlite3 from "sqlite3";
 import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
+
 class MemoDatabase {
   #database;
 
