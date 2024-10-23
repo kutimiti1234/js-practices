@@ -128,8 +128,8 @@ class MemoManager {
             throw new Error("メモを入力してください。");
           }
           resolve(lines);
-        } catch (err) {
-          reject(err);
+        } catch (error) {
+          reject(error);
         }
       });
     });
