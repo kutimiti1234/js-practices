@@ -15,11 +15,11 @@ const memoManager = new MemoManager();
 await memoManager.initializeDatabase();
 
 if (options.list) {
-  memoManager.showList();
+  await memoManager.showList();
 } else if (options.reference) {
-  memoManager.refer();
+  await memoManager.refer();
 } else if (options.delete) {
-  memoManager.delete();
+  await memoManager.delete();
 } else {
   await memoManager.add();
 }
