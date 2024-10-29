@@ -73,7 +73,7 @@ class MemoManager {
   }
 
   async delete() {
-    const memos = await this.#database.selectAllMemos();
+    const memos = await this.#database.selectAll();
 
     if (memos.length === 0) {
       return;
