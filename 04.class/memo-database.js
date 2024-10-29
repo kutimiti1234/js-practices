@@ -11,21 +11,21 @@ class MemoDatabase {
   async createTable() {
     await promisifiedDatabaseFunctions.run(
       this.#database,
-      "CREATE TABLE IF NOT EXISTS memos(id INTEGER PRIMARY KEY AUTOINCREMENT,content NOT NULL)",
+      "CREATE TABLE IF NOT EXISTS memos(id INTEGER PRIMARY KEY AUTOINCREMENT, content NOT NULL)",
     );
   }
 
   async insert(content) {
     await promisifiedDatabaseFunctions.run(
       this.#database,
-      "INSERT INTO memos(content) values($content)",
+      "INSERT INTO memos(content) VALUES($content)",
       {
         $content: content,
       },
     );
   }
 
-  async selectAllMemos() {
+  async selectAll() {
     const memos = await promisifiedDatabaseFunctions.all(
       this.#database,
       "SELECT id, content FROM memos",
