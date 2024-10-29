@@ -5,7 +5,7 @@ class MemoDatabase {
   #database;
 
   constructor() {
-    this.#database = new sqlite3.Database("sqlite3");
+    this.#database = new sqlite3.Database("memoDB");
   }
 
   async createTable() {
