@@ -94,7 +94,7 @@ class MemoManager {
       const answer = await enquirer.prompt(question);
 
       await this.#database.delete(answer.memo.id);
-      await this.#database.close(this.#database);
+      await this.#database.close();
 
       console.log(`${answer.memo.content} is deleted.`);
     } catch (error) {
