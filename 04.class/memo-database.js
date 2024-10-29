@@ -26,11 +26,10 @@ class MemoDatabase {
   }
 
   async selectAll() {
-    const memos = await promisifiedDatabaseFunctions.all(
+    return await promisifiedDatabaseFunctions.all(
       this.#database,
       "SELECT id, content FROM memos",
     );
-    return memos;
   }
 
   async delete(id) {
