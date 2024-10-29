@@ -33,6 +33,7 @@ class MemoManager {
 
   async showList() {
     const memos = await this.#database.selectAll();
+    await this.#database.close();
     memos.forEach((memo) => {
       console.log(memo.content.split("\n")[0]);
     });
