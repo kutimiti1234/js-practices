@@ -14,15 +14,18 @@ class MemoManager {
   }
 
   async add() {
+    let lines;
     try {
-      const lines = await this.#inputLines();
-      const content = lines.join("\n");
-
-      await this.#database.insert(content);
+      lines = await this.#inputLines();
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+      } else {
+        throw error;
       }
+      const content = lines.join("\n");
+
+      await this.#database.insert(content);
     }
 
     await this.#database.close();
@@ -123,14 +126,10 @@ class MemoManager {
       });
 
       rl.on("close", () => {
-        try {
-          if (lines[0] === undefined) {
-            throw new Error("Please enter a memo.");
-          }
-          resolve(lines);
-        } catch (error) {
-          reject(error);
+        if (lines[0] === undefined) {
+          reject(new Error("Please enter a memo."));
         }
+        resolve(lines);
       });
     });
   }
