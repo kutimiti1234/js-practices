@@ -39,7 +39,7 @@ class MemoManager {
   }
 
   async refer() {
-    const memos = await this.#database.selectAllMemos();
+    const memos = await this.#database.selectAll();
     await this.#database.close();
 
     if (memos.length === 0) {
