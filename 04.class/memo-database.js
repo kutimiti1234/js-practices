@@ -41,7 +41,7 @@ class MemoDatabase {
   }
 
   async close() {
-    await promisifiedDatabaseFunctions.close(this.#database);
+    await promisifiedDatabaseFunctions.close();
   }
 }
 export default MemoDatabase;
