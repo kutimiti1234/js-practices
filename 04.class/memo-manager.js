@@ -24,10 +24,10 @@ class MemoManager {
       } else {
         throw error;
       }
-      const content = lines.join("\n");
-
-      await this.#database.insert(content);
     }
+
+    const content = lines.join("\n");
+    await this.#database.insert(content);
 
     await this.#database.close();
   }
