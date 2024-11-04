@@ -20,6 +20,7 @@ class MemoManager {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        process.exit(1);
       } else {
         throw error;
       }
