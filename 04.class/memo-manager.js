@@ -144,7 +144,6 @@ class MemoManager {
       return {
         name: memoPreview,
         value: memo,
-        message: memoPreview,
       };
     });
   }
