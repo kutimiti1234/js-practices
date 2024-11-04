@@ -62,9 +62,9 @@ class MemoManager {
       },
     };
 
+    let answer;
     try {
-      const answer = await enquirer.prompt(question);
-      console.log(answer.memo.content);
+      answer = await enquirer.prompt(question);
     } catch (error) {
       if (error === "") {
         process.exit(130);
@@ -72,6 +72,7 @@ class MemoManager {
         throw error;
       }
     }
+    console.log(answer.memo.content);
   }
 
   async delete() {
@@ -95,11 +96,9 @@ class MemoManager {
       },
     };
 
+    let answer;
     try {
-      const answer = await enquirer.prompt(question);
-      await this.#database.delete(answer.memo.id);
-
-      console.log(`${answer.memo.content} is deleted.`);
+      answer = await enquirer.prompt(question);
     } catch (error) {
       if (error === "") {
         process.exit(130);
@@ -107,6 +106,9 @@ class MemoManager {
         throw error;
       }
     }
+    await this.#database.delete(answer.memo.id);
+
+    console.log(`${answer.memo.content} is deleted.`);
   }
 
   #inputLines() {
