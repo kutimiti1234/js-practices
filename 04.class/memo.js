@@ -23,3 +23,5 @@ if (options.list) {
 } else {
   await memoManager.add();
 }
+
+await memoManager.finalizeDatabase();

@@ -13,6 +13,10 @@ class MemoManager {
     await this.#database.createTable();
   }
 
+  async finalizeDatabase() {
+    await this.#database.close();
+  }
+
   async add() {
     let lines;
     try {
@@ -28,13 +32,10 @@ class MemoManager {
 
     const content = lines.join("\n");
     await this.#database.insert(content);
-
-    await this.#database.close();
   }
 
   async showList() {
     const memos = await this.#database.selectAll();
-    await this.#database.close();
     memos.forEach((memo) => {
       console.log(memo.content.split("\n")[0]);
     });
@@ -42,7 +43,6 @@ class MemoManager {
 
   async refer() {
     const memos = await this.#database.selectAll();
-    await this.#database.close();
 
     if (memos.length === 0) {
       return;
@@ -97,9 +97,7 @@ class MemoManager {
 
     try {
       const answer = await enquirer.prompt(question);
-
       await this.#database.delete(answer.memo.id);
-      await this.#database.close();
 
       console.log(`${answer.memo.content} is deleted.`);
     } catch (error) {
