@@ -86,7 +86,7 @@ export default class MemoManager {
     const question = {
       type: "select",
       name: "memo",
-      message: "Choose a memo you want to see:",
+      message: "Choose a memo you want to delete:",
       choices,
       footer() {
         return memos[this.index].content;
