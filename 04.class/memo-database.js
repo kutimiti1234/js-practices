@@ -1,7 +1,7 @@
 import sqlite3 from "sqlite3";
 import promisifiedDatabaseFunctions from "./promisified-database-functions.js";
 
-class MemoDatabase {
+export default class MemoDatabase {
   #database;
 
   constructor() {
@@ -44,4 +44,3 @@ class MemoDatabase {
     await promisifiedDatabaseFunctions.close(this.#database);
   }
 }
-export default MemoDatabase;

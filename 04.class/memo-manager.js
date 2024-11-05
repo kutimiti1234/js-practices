@@ -2,7 +2,7 @@ import readline from "readline";
 import enquirer from "enquirer";
 import MemoDatabase from "./memo-database.js";
 
-class MemoManager {
+export default class MemoManager {
   #database;
 
   constructor() {
@@ -150,4 +150,3 @@ class MemoManager {
     });
   }
 }
-export default MemoManager;
