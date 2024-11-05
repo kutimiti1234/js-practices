@@ -128,7 +128,7 @@ export default class MemoManager {
       });
 
       rl.on("close", () => {
-        if (lines[0] === undefined) {
+        if (!lines.length) {
           reject(new Error("Please enter a memo."));
         }
         resolve(lines);
