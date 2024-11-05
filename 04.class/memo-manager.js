@@ -108,7 +108,7 @@ export default class MemoManager {
     }
     await this.#database.delete(answer.memo.id);
 
-    console.log(`${answer.memo.content} is deleted.`);
+    console.log(`${answer.memo.content.split("\n")[0]} is deleted.`);
   }
 
   #inputLines() {
