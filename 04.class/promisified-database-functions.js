@@ -45,4 +45,5 @@ function close(database) {
     });
   });
 }
+
 export default { run, get, all, close };
